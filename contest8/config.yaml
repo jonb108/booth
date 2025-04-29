@@ -1,0 +1,19 @@
+contest_num: 8
+beans:
+    -
+        name: Garbanzo
+        desc: "Versatile bean falafel, hummus and much more description and more."
+    -
+        name: Baby Lima
+        desc: nice white bean
+    -
+        name: Fava
+        desc: broad bean green or cooked
+actual: 731
+bucket: 50
+nprizes: 4
+prize:
+    - $50 Gift Certificate at the Co-op
+    - $30 Gift Certificate at Trader Joe's
+    - Cool Beans cookbook
+    - The Great Vegan Bean Book cookbook
