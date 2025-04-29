@@ -1,0 +1,189 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use YAML qw/
+    LoadFile
+/;
+use Template;
+use Data::Dumper qw/
+    Dumper
+/;
+
+sub n3 {
+    my ($name) = @_;
+    my ($first, $last) = split ' ', $name;
+    return substr($first, 0, 3) . ($last? ' ' . substr($last, 0, 3)
+                                  :       '');
+}
+
+if (@ARGV != 1 || $ARGV[0] !~ m{\A \d+ \z}xms) {
+    die "usage: mkpage contest_num\n";
+}
+my $n = shift;
+my $dir = "contest$n";
+my %C = %{ LoadFile("$dir/config.yaml") };
+my $actual = $C{actual};
+$C{nbs} = @{$C{beans}} == 1? '': 's';
+for my $bhref (@{$C{beans}}) {
+    my $pic_name = lc $bhref->{name};
+    $pic_name =~ s{\ }{_}xmsg;
+    $bhref->{picture} = "$pic_name.jpg";
+}
+#print Dumper \%C; exit;
+my @data;
+my $nguesses = 0,
+my $tot_guesses = 0,
+my @bucket;
+my %plant_events;
+open my $pe, '<', 'plant_events.txt'
+    or die "cannot open plant_events.txt\n";
+while (my $em = <$pe>) {
+    chomp $em;
+    $plant_events{$em} = 1;
+}
+close $pe;
+open my $in, '<', "$dir/guesses.txt"
+    or die "cannot open $dir/guesses.txt: $!\n";
+LINE:
+while (my $line = <$in>) {
+    if ($line =~ m{\A \s* [#]}xms) {
+        next LINE;
+    }
+    my $name = $line; chomp $name;
+    my $plant = 0;
+    if ($name =~ s{ \s* [*] \s* \z}{}xms) {
+        $plant = 1;
+    }
+    my $contact = <$in>; chomp $contact;
+    # email has @, phone is 999-999-9999
+    my ($email, $phone);
+    if ($contact =~ m{(\S+[@]\S+)}xms) {
+        $email = $1;
+    }
+    if ($contact =~ m{(\d\d\d[-]\d\d\d[-]\d\d\d\d)}xms) {
+        $phone = $1;
+    }
+    my $guess = <$in>; chomp $guess;
+    ++$nguesses;
+    $tot_guesses += $guess;
+    $bucket[ int($guess / $C{bucket}) + 1 ]++;
+    my $blank = <$in>;
+    push @data, {
+        name    => $name,
+        name3   => n3($name),
+        email   => $email,
+        phone   => $phone,
+        guess   => $guess,
+        plant   => $plant,
+        diff    => abs($actual - $guess),
+    };
+    if ($plant && $email) {
+        $plant_events{$email} = 1;
+    }
+}
+close $in;
+
+open my $pe2, '>', "plant_events.txt"
+    or die "cannot open plant_events.txt\n";
+for my $em (sort keys %plant_events) {
+    print {$pe2} "$em\n";
+}
+close $pe2;
+
+my $bar;
+for my $i (0 .. $#bucket) {
+    if ($bucket[$i]) {
+        $bar .= sprintf "<%4d %s\n",  ($i*$C{bucket}), '*' x $bucket[$i];
+    }
+}
+$C{bargraph} = $bar;
+$C{nguesses} = $nguesses;
+$C{avg_guess} = int($tot_guesses/$nguesses);
+# median
+my @guesses = sort { $a <=> $b } map { $_->{guess} } @data;
+$C{median} = $guesses[int($nguesses/2)],
+open my $out1, '>', "$dir/guess_num.html"
+    or die "cannot open $dir/guess_num\n";
+my $pre = "<pre style='font-size: 18pt;'>";
+print {$out1} $pre;
+for my $dhref (sort {
+                   $a->{guess} <=> $b->{guess}
+               }
+               @data
+) {
+    printf {$out1} "%5d %s\n", $dhref->{guess}, $dhref->{name3};
+}
+print {$out1} "</pre>\n";
+close $out1;
+open my $out2, '>', "$dir/guess_alpha.html"
+    or die "cannot open $dir/guess_alpha\n";
+print {$out2} $pre;
+for my $dhref (sort {
+                   $a->{name3} cmp $b->{name3}
+               }
+               @data
+) {
+    printf {$out2} "%5d %s\n", $dhref->{guess}, $dhref->{name3};
+}
+print {$out2} "</pre>\n";
+close $out2;
+
+my @diff = sort { $a->{diff} <=> $b->{diff} }
+           @data;
+my $prev = -1;
+my $nprizes = $C{nprizes};
+my $np = 0;
+my $winners = '';
+open my $wc, '>', "$dir/winner_contact.txt"
+    or die "cannot open $dir/winner_contact.txt\n";
+my %winner_names;
+PRIZE:
+for my $d (@diff) {
+    if ($prev != $d->{diff}) {
+        ++$np;
+        $prev = $d->{diff};
+    }
+    $winners .= <<"EOH";
+<tr>
+<td class=rt>$d->{diff}</td>
+<td class=rt>$d->{guess}</td>
+<td class=lt>$d->{name}</td>
+<td class=lt>$C{prize}[$np-1]</td>
+</tr>
+EOH
+    $winner_names{$d->{name}} = 1;
+    print {$wc} "$d->{name} $d->{email} $d->{phone} $C{prize}[$np-1]\n";
+    if ($np >= $nprizes) {
+        last PRIZE;
+    }
+}
+close $wc;
+$C{winners} = $winners;
+open my $le, '>', "$dir/loser_email.txt"
+    or die "cannot open $dir/loser_email.txt/n";
+open my $lp, '>', "$dir/loser_phone.txt"
+    or die "cannot open $dir/loser_phone.txt/n";
+for my $d (@data) {
+    if (! $winner_names{$d->{name}}) {
+        if ($d->{email}) {
+            print {$le} "$d->{email}\n";
+        }
+        else {
+            print {$lp} "$d->{phone}\n";
+        }
+    }
+}
+# what about a group of people that share contact information
+# one of them wins and the rest lose?
+# the winner will be addressed by name so they will
+# know which of them won.
+close $le;
+close $lp;
+system("sort -u $dir/loser_email.txt >/tmp/t; mv /tmp/t $dir/loser_email.txt");
+system("sort -u $dir/loser_phone.txt >/tmp/t; mv /tmp/t $dir/loser_phone.txt");
+my $tt = Template->new(
+    INTERPOLATE => 1,
+    ENCODING    => 'utf8',
+    OUTPUT_PATH => $dir,
+);
+$tt->process("web.html", \%C, 'index.html') || die $tt->error();
