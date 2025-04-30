@@ -75,7 +75,6 @@ There are $num_beans types of beans:
 <li>The jar of beans is at the <a target=_blank href='https://logicalpoetry.com/booth/index.html'>plant-based booth</a> at the Davis Farmers’ Market
 every Saturday (weather permitting) from 8:00-1:00 in the non-profit/community area.
 <li>It is free to guess (estimate) the number of beans in the jar.
-You can submit your guess online here: <a target=_blank href='https://logicalpoetry.com/cgi-bin/guess.pl'>Bean Count Guess</a>.
 You can update your guess by submitting another one.
 <li>The contest will end on December 12th.
 It will then take a little while to carefully count the beans.
@@ -123,6 +122,8 @@ Here are all the guesses - with people's names abbreviated to the first 3 charac
 <a name=winners></a>
 <h2>The Winners
 <a href=#top><img src=top.gif style='margin-left: .4in'></a></h2>
+The actual count was ${actual}.
+<p>
 <table cellpadding=5>
 <tr>
 <th class=rt>Off By</th>

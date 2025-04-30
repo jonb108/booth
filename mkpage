@@ -22,13 +22,16 @@ if (@ARGV != 1 || $ARGV[0] !~ m{\A \d+ \z}xms) {
 my $n = shift;
 my $dir = "contest$n";
 my %C = %{ LoadFile("$dir/config.yaml") };
-my $actual = $C{actual};
-$C{nbs} = @{$C{beans}} == 1? '': 's';
+$C{num_beans} = @{$C{beans}};
+$C{nbs} = $C{num_beans} == 1? '': 's';
+my $actual = 0;
 for my $bhref (@{$C{beans}}) {
     my $pic_name = lc $bhref->{name};
     $pic_name =~ s{\ }{_}xmsg;
     $bhref->{picture} = "$pic_name.jpg";
+    $actual += $bhref->{count};
 }
+$C{actual} = $actual;
 #print Dumper \%C; exit;
 my @data;
 my $nguesses = 0,
@@ -152,7 +155,10 @@ for my $d (@diff) {
 </tr>
 EOH
     $winner_names{$d->{name}} = 1;
-    print {$wc} "$d->{name} $d->{email} $d->{phone} $C{prize}[$np-1]\n";
+    print {$wc} "$d->{name}\n";
+    print {$wc} "    $d->{email}\n" if $d->{email};
+    print {$wc} "    $d->{phone}\n" if $d->{phone};
+    print {$wc} "    $C{prize}[$np-1]\n";
     if ($np >= $nprizes) {
         last PRIZE;
     }
@@ -186,4 +192,4 @@ my $tt = Template->new(
     ENCODING    => 'utf8',
     OUTPUT_PATH => $dir,
 );
-$tt->process("web.html", \%C, 'index.html') || die $tt->error();
+$tt->process("web.tt2", \%C, 'index.html') || die $tt->error();
