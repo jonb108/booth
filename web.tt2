@@ -48,6 +48,7 @@ pre {
 <a href=#rules>The Rules</a><br>
 <a href=#prizes>The Prizes</a><br>
 <a href=#guesses>The Guesses</a><br>
+<a href=#final_count>The Final Count</a><br>
 <a href=#winners>The Winners</a><br>
 <a href=#the_beans>The Bean$nbs and Recipe$nbs</a><br>
 <a href=#questions>Questions?</a><br>
@@ -56,7 +57,7 @@ pre {
 <a name=jar></a>
 <h2>How many beans in this jar?
 <a href=#top><img src=top.gif style='margin-left: .4in'></a></h2>
-<img src=jar.jpg width=350>
+<img src=jar.jpg width=450>
 <p>
 [% IF num_beans == 1 %]
 There is only one type of bean:
@@ -72,13 +73,16 @@ There are $num_beans types of beans:
 <h2>The Rules
 <a href=#top><img src=top.gif style='margin-left: .4in'></a></h2>
 <ul>
-<li>The jar of beans is at the <a target=_blank href='https://logicalpoetry.com/booth/index.html'>plant-based booth</a> at the Davis Farmers’ Market
+<li>The jar of beans is at the <a target=_blank href='https://logicalpoetry.com/booth/index.html'>plant-based booth</a> at the Davis Farmers' Market
 every Saturday (weather permitting) from 8:00-1:00 in the non-profit/community area.
 <li>It is free to guess (estimate) the number of beans in the jar.
 You can update your guess by submitting another one.
-<li>The contest will end on December 12th.
+<li>The contest will end on ${enddate}.
 It will then take a little while to carefully count the beans.
-<li>The 4 guesses that are closest to the actual count will win the prizes.
+<li>The 4 guesses that are closest (above or below)
+to the final count will win the prizes.
+Ties will be resolved by a complex objective algorithm
+and (if needed) a coin toss.
 The winners will be notified and the results will be posted on this web site.
 <p>
 Everyone will receive a message - win or lose.
@@ -88,12 +92,9 @@ Everyone will receive a message - win or lose.
 <a href=#top><img src=top.gif style='margin-left: .4in'></a></h2>
 <ol>
 <li>\$50 gift certificate at the <a target=_blank href=https://davisfood.coop>Davis Food Co-op</a> at 620 G Street.
-<li>\$30 gift certificate at <a target=_blank href='https://locations.traderjoes.com/ca/davis/182/'>Trader Joe’s</a> at 885 Russell Blvd.
+<li>\$30 gift certificate at <a target=_blank href='https://locations.traderjoes.com/ca/davis/182/'>Trader Joe's</a> at 885 Russell Blvd.
 <li>
-<a target=_blank href='https://www.penguinrandomhouse.com/books/566455/cool-beans-by-joe-yonan/'>
-Cool Beans
-</a>
-- bean cookbook by Joe Yonan, published by Ten Speed Press in 2020.
+<a target=_blank href='https://www.penguinrandomhouse.com/books/566455/cool-beans-by-joe-yonan/'>Cool Beans</a> - bean cookbook by Joe Yonan, published by Ten Speed Press in 2020.
 <li>
 <a target=_blank href='https://www.quartoknows.com/ourbooks/bookinfo.aspx?ean=9781592335497&bkey=18379068'>
 The Great Vegan Bean Book
@@ -104,14 +105,14 @@ The Great Vegan Bean Book
 <a href=#top><img src=top.gif style='margin-left: .4in'></a></h2>
 There were $nguesses guesses.<br>
 Average guess was ${avg_guess}.<br>
-Median guess was ${median}.<br>The actual count was $actual beans.<br>
+Median guess was ${median}.
 <p>
 Several people carefully analyzed, counted, measured, and multiplied.
 Others made a 'wild ass guess' by gut instinct and intuition.
 Estimation <b>is</b> a difficult art.
 <p>
 Bar graph of the guesses:
-<pre style='margin-left: .5in;'>
+<pre style='margin-left: .5in; font-size: 16pt;'>
 $bargraph</pre>
 <p>
 Here are all the guesses - with people's names abbreviated to the first 3 characters of their first and last names.
@@ -119,10 +120,32 @@ Here are all the guesses - with people's names abbreviated to the first 3 charac
 <a target=_blank href=guess_num.html>In guess numerical order</a><p>
 <a target=_blank href=guess_alpha.html>In alphabetical order by name</a>
 </ul>
+<a name=final_count></a>
+<h2>The Final Count
+<a href=#top><img src=top.gif style='margin-left: .4in'></a></h2>
+I had some fun being a "bean counter".
+<ul>
+<table cellpadding=3>
+[% FOREACH b IN beans %]
+<tr>
+<td class=lt><a href=#$b.name>$b.name</a></td>
+<td class=rt>$b.count</td>
+</tr>
+[% END %]
+<tr>
+<td><hr></td>
+<td><hr></td>
+</tr>
+<tr>
+<td class=lt>Total</td>
+<td class=rt>$final</td>
+</tr>
+</table>
+</ul>
 <a name=winners></a>
 <h2>The Winners
 <a href=#top><img src=top.gif style='margin-left: .4in'></a></h2>
-The actual count was ${actual}.
+So the final count was ${final}.
 <p>
 <table cellpadding=5>
 <tr>
@@ -139,9 +162,9 @@ $winners
 [% FOREACH b IN beans %]
     <a name='$b.name'></a>
     $b.name
-    <table cellpadding=5>
+    <table cellpadding=10>
     <tr>
-    <td valign=top><img src=$b.picture width=250></td>
+    <td valign=top><img src=$b.picture width=350></td>
     <td>
     $b.desc
     <p>
@@ -149,6 +172,7 @@ $winners
     </td>
     </tr>
     </table>
+    <p>
 [% END %]
 <a name=questions></a>
 <h2>Questions?

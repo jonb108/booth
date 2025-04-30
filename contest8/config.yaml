@@ -1,20 +1,20 @@
+enddate: April 26, 2025
 beans:
   -
     name: Garbanzo
-    count: 200
-    desc: "Versatile bean falafel, hummus and much more description and more."
+    count: 647
+    desc: "Also known as chickpea.  An ancient bean and perhaps the most versatile one in the pantry as a roasted snack and for its ability to hold its shape in salads and to become creamy and fluffy as purees, including what has to be the most popular dip in the world: hummus.  It's used widely in Italian, Spanish, Portuguese, Middle Eastern, Mexican, and American cooking. Varieties: black chickpea, black gram, ceci siciliani, cicerchie, desi, kabuli (the most common in America)."
   -
     name: Baby Lima
-    count: 200
-    desc: nice white bean
+    count: 399
+    desc: "Named for its Lima, Peru birthplace, this big flat bean tastes a little sweet and has a creamy texture.  Varieties: large white (buttery, a little mealy), baby white (creamier, a little fruity), Christmas."
   -
     name: Fava
     count: 49
-    desc: broad bean green or cooked
-bucket: 50
-nprizes: 4
-prize:
-  - $50 Gift Certificate at the Co-op
-  - $30 Gift Certificate at Trader Joe's
-  - Cool Beans cookbook
-  - The Great Vegan Bean Book cookbook
+    desc: "Also known as broad bean. One of the oldest beans in Europe where it is especially beloved in Middle Eastern cooking.  It's a little fussy to prepare from the fresh pods, because each bean is wrapped in a second skin, although plenty of cultures don't bother peeling.  Dried varieties: large brown, split/skinned, and mini brown (traditional in Middle Eastern ful)."
+bucket: 100
+prizes:
+  - $50 Gift Certificate at the <a target=_blank href='https://davisfood.coop'>Co-op</a>
+  - $30 Gift Certificate at <a target=_blank href='https://locations.traderjoes.com/ca/davis/182/'>Trader Joe's</a>
+  - <a target=_blank href='https://www.penguinrandomhouse.com/books/566455/cool-beans-by-joe-yonan/'>Cool Beans</a> cookbook
+  - <a target=_blank href='https://www.quartoknows.com/ourbooks/bookinfo.aspx?ean=9781592335497&bkey=18379068'>The Great Vegan Bean Book</a> cookbook

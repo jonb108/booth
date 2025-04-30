@@ -22,16 +22,17 @@ if (@ARGV != 1 || $ARGV[0] !~ m{\A \d+ \z}xms) {
 my $n = shift;
 my $dir = "contest$n";
 my %C = %{ LoadFile("$dir/config.yaml") };
+$C{contest_num} = $n;
 $C{num_beans} = @{$C{beans}};
 $C{nbs} = $C{num_beans} == 1? '': 's';
-my $actual = 0;
+my $final = 0;
 for my $bhref (@{$C{beans}}) {
     my $pic_name = lc $bhref->{name};
     $pic_name =~ s{\ }{_}xmsg;
     $bhref->{picture} = "$pic_name.jpg";
-    $actual += $bhref->{count};
+    $final += $bhref->{count};
 }
-$C{actual} = $actual;
+$C{final} = $final;
 #print Dumper \%C; exit;
 my @data;
 my $nguesses = 0,
@@ -78,7 +79,7 @@ while (my $line = <$in>) {
         phone   => $phone,
         guess   => $guess,
         plant   => $plant,
-        diff    => abs($actual - $guess),
+        diff    => abs($final - $guess),
     };
     if ($plant && $email) {
         $plant_events{$email} = 1;
@@ -131,37 +132,44 @@ for my $dhref (sort {
 print {$out2} "</pre>\n";
 close $out2;
 
-my @diff = sort { $a->{diff} <=> $b->{diff} }
+my @diff = sort {
+               $a->{diff} <=> $b->{diff}
+               ||
+               # reverse alphabetical for a change
+               $b->{name} cmp $a->{name}
+           }
            @data;
 my $prev = -1;
-my $nprizes = $C{nprizes};
+my $nprizes = @{$C{prizes}};
 my $np = 0;
 my $winners = '';
 open my $wc, '>', "$dir/winner_contact.txt"
     or die "cannot open $dir/winner_contact.txt\n";
 my %winner_names;
-PRIZE:
-for my $d (@diff) {
-    if ($prev != $d->{diff}) {
-        ++$np;
-        $prev = $d->{diff};
-    }
+sub add_winner {
+    my ($d, $i) = @_;
     $winners .= <<"EOH";
 <tr>
 <td class=rt>$d->{diff}</td>
 <td class=rt>$d->{guess}</td>
 <td class=lt>$d->{name}</td>
-<td class=lt>$C{prize}[$np-1]</td>
+<td class=lt>$C{prizes}[$i]</td>
 </tr>
 EOH
     $winner_names{$d->{name}} = 1;
     print {$wc} "$d->{name}\n";
     print {$wc} "    $d->{email}\n" if $d->{email};
     print {$wc} "    $d->{phone}\n" if $d->{phone};
-    print {$wc} "    $C{prize}[$np-1]\n";
-    if ($np >= $nprizes) {
-        last PRIZE;
-    }
+    print {$wc} "    $C{prizes}[$i]\n";
+}
+for my $i (0 .. 3) {
+    add_winner($diff[$i], $i);
+}
+# ties with the last prize given
+my $j = 4;
+while ($j <= $#diff && $diff[$j]->{diff} == $diff[3]->{diff}) {
+    add_winner($diff[$j], 3);
+    ++$j;
 }
 close $wc;
 $C{winners} = $winners;
