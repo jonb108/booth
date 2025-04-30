@@ -77,7 +77,7 @@ There are $num_beans types of beans:
 every Saturday (weather permitting) from 8:00-1:00 in the non-profit/community area.
 <li>It is free to guess (estimate) the number of beans in the jar.
 You can update your guess by submitting another one.
-<li>The contest will end on ${enddate}.
+<li>The contest will end when there are 70 or 80 guesses.
 It will then take a little while to carefully count the beans.
 <li>The 4 guesses that are closest (above or below)
 to the final count will win the prizes.
@@ -167,8 +167,6 @@ $winners
     <td valign=top><img src=$b.picture width=350></td>
     <td>
     $b.desc
-    <p>
-    recipe link
     </td>
     </tr>
     </table>

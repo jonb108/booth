@@ -6,11 +6,11 @@ John Morgan
 jtmorgan406@gmail.com 203-610-1359
 2623
 
-I ? name
+I
 jjjzhao@ucdavis.edu 949-695-0612
 1500
 
-Angela Linszey ?? email
+Angela Linszey
 304-906-9855
 407
 
@@ -31,7 +31,7 @@ msbestmost@gmail.com 937-620-5222
 480
 
 Seven *
-sevenmalion289@gmail.com 530-338-6935
+sevenmarion289@gmail.com 530-338-6935
 483
 
 Lily Javers
@@ -91,7 +91,7 @@ gwdarling@icloud.com 530-564-9867
 410
 
 Mark Huising
-mark.o.huisin@gmail.com 858-337-0268
+mark.o.huising@gmail.com 858-337-0268
 643
 
 Armin Huising
@@ -102,14 +102,16 @@ Ryan Darling *
 ryan_darling@sbcglobal.net 530-564-9896
 492
 
-John Johnston ?? email domain
-johnston@dsus.edu 916-705-0125
+# asus or dsus or what?
+John Johnston
+johnston@asus.edu 916-705-0125
 590
 
 Talitha *
 talitha.vandermeulen@gmail.com 858-337-0264
 700
 
+# incorrect email
 Scott Steward
 scottsteward@posteo.com 530-574-5253
 535
@@ -142,7 +144,7 @@ Pallavi Shakya *
 pshakya@ucdavis.edu 530-799-6735
 725
 
-Josh Lillard ?? name, email
+Josh Lillard
 joshua.gillard3@gmail.com 650-287-4509
 525
 
@@ -150,8 +152,8 @@ Caroline Curran
 cec101@pitt.edu 724-263-1296
 723
 
-Sahana Anavith * ? email rith?
-shanasrianavith1@gmail.com 449-523-4817
+Sahana Ananth *
+sahanasriananth1@gmail.com 449-523-4817
 550
 
 Laurens vd Wiel *
@@ -215,19 +217,19 @@ avsantar@ucdavis.edu 858-610-1568
 471
 
 Emre Kara *
-eck@festmail.com
+eck@fastmail.com
 3400
 
 Oliver
-eck@festmail.com
+eck@fastmail.com
 2800
 
 Lindsay
-eck@festmail.com
+eck@fastmail.com
 1750
 
 Leo
-eck@festmail.com
+eck@fastmail.com
 986
 
 Laksha Karthikeyan
@@ -243,11 +245,11 @@ hannah.ledford@gmail.com 707-999-1207
 357
 
 Brent Mitchell *
-bmitchell@rracoustical.com 916-698-4789
+bmitchell@bracoustical.com 916-698-4789
 680
 
-Bree Anna Virrueter
-breeannavirreuteta@gmail.com 559-593-8508
+Bree Anna Virrueta
+breeannavirrueta@gmail.com 559-593-8508
 824
 
 Mithiul Loganathan

@@ -1,17 +1,16 @@
-enddate: April 26, 2025
 beans:
   -
     name: Garbanzo
     count: 647
-    desc: "Also known as chickpea.  An ancient bean and perhaps the most versatile one in the pantry as a roasted snack and for its ability to hold its shape in salads and to become creamy and fluffy as purees, including what has to be the most popular dip in the world: hummus.  It's used widely in Italian, Spanish, Portuguese, Middle Eastern, Mexican, and American cooking. Varieties: black chickpea, black gram, ceci siciliani, cicerchie, desi, kabuli (the most common in America)."
+    desc: "Also known as chickpea.  An ancient bean and perhaps the most versatile one in the pantry as a roasted snack and for its ability to hold its shape in salads and to become creamy and fluffy as purees, including what has to be the most popular dip in the world: hummus.  It's used widely in Italian, Spanish, Portuguese, Middle Eastern, Mexican, and American cooking. Varieties: black chickpea, black gram, ceci siciliani, cicerchie, desi, kabuli (the most common in America).<p><a target=_blank href='https://www.logicalpoetry.com/recipes/hummus.html'>Hummus</a>"
   -
     name: Baby Lima
     count: 399
-    desc: "Named for its Lima, Peru birthplace, this big flat bean tastes a little sweet and has a creamy texture.  Varieties: large white (buttery, a little mealy), baby white (creamier, a little fruity), Christmas."
+    desc: "Named for its Lima, Peru birthplace, this big flat bean tastes a little sweet and has a creamy texture.  Varieties: large white (buttery, a little mealy), baby white (creamier, a little fruity), Christmas.<p><a target=_blank href='https://thismessisours.com/mediterranean-style-baked-lima-beans-gluten-free-vegan/'>Mediterranean-Style Baked Lima Beans</a>"
   -
     name: Fava
     count: 49
-    desc: "Also known as broad bean. One of the oldest beans in Europe where it is especially beloved in Middle Eastern cooking.  It's a little fussy to prepare from the fresh pods, because each bean is wrapped in a second skin, although plenty of cultures don't bother peeling.  Dried varieties: large brown, split/skinned, and mini brown (traditional in Middle Eastern ful)."
+    desc: "Also known as broad bean. One of the oldest beans in Europe where it is especially beloved in Middle Eastern cooking.  It's a little fussy to prepare from the fresh pods, because each bean is wrapped in a second skin, although plenty of cultures don't bother peeling.  Dried varieties: large brown, split/skinned, and mini brown (traditional in Middle Eastern ful).<p><a target=_blank href='https://toriavey.com/fava-beans-how-to-cook-soak-peel-freeze/'>Cooking with Fava Beans</a>"
 bucket: 100
 prizes:
   - $50 Gift Certificate at the <a target=_blank href='https://davisfood.coop'>Co-op</a>

@@ -148,6 +148,8 @@ open my $wc, '>', "$dir/winner_contact.txt"
 my %winner_names;
 sub add_winner {
     my ($d, $i) = @_;
+    my $pr = $C{prizes}[$i];
+    $pr =~ s{<[^>]*>}{}xmsg;    # no HTML tags
     $winners .= <<"EOH";
 <tr>
 <td class=rt>$d->{diff}</td>
@@ -160,7 +162,7 @@ EOH
     print {$wc} "$d->{name}\n";
     print {$wc} "    $d->{email}\n" if $d->{email};
     print {$wc} "    $d->{phone}\n" if $d->{phone};
-    print {$wc} "    $C{prizes}[$i]\n";
+    print {$wc} "    $pr\n";
 }
 for my $i (0 .. 3) {
     add_winner($diff[$i], $i);
